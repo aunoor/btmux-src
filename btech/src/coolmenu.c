@@ -14,6 +14,8 @@
 
 #include <stdio.h>
 #include <string.h>
+
+#include "config.h"
 #include "db.h"
 
 void KillText(char **mapt);

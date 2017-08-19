@@ -1,4 +1,4 @@
-file (GLOB NETMUX_SRCS ../misc/myfifo.c ../event/event.c
+file (GLOB NETMUX_SRCS dummy.cc ../misc/myfifo.c ../event/event.c
 	boolexp.c bsd.c commac.c command.c compat.c comsys.c conf.c
 	cque.c create.c db.c db_xml.c db_xdr.c db_rw.c dllist.c
 	dnschild.c eval.c file_c.c flags.c funceval.c functions.c
@@ -30,12 +30,13 @@ file (GLOB MKINDX_SRCS mkindx.c)
 
 #add include directories
 include_directories(${LIBEVENT_INCLUDE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/include)
 include_directories(${CMAKE_SOURCE_DIR}/src)
 include_directories(${CMAKE_SOURCE_DIR}/misc)
 include_directories(${CMAKE_SOURCE_DIR}/event)
 include_directories(${CMAKE_BINARY_DIR})
 
 add_executable(netmux ${NETMUX_SRCS} ${NETMUX_HDRS} ${NETMUX_SRCS_SQL} ${NETMUX_SRCS_LOG})
-target_link_libraries(netmux ${LIBEVENT_LIB})
+target_link_libraries(netmux libbtech ${LIBEVENT_LIB} libbtfi ${LIBBTPR})
 
 add_executable(mkindx ${MKINDX_SRCS} ${MKINDX_HDRS})

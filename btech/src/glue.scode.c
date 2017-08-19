@@ -47,6 +47,7 @@
 #include "p.functions.h"
 #include "p.mech.tech.commands.h"
 #include "p.mech.consistency.h"
+#include "flags.h"
 
 extern SpecialObjectStruct SpecialObjects[];
 dbref match_thing(dbref player, char *name);

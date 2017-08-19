@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <string.h>
 
+void raw_notify(dbref player, const char *msg);
+
 /*
  * Fake notify_printf().  This is supposed to printf-ize a message and queue it
  * on all a player's outgoing network buffers.

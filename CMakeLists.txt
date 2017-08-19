@@ -43,3 +43,4 @@ set(PACKAGE_STRING "BattleTech MUX")
 gen_config_h()
 
 add_subdirectory(src)
+add_subdirectory(btech)
