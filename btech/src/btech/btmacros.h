@@ -28,6 +28,9 @@
 #include "mech.h"
 #include "muxevent.h"
 #include "p.event.h"
+#include "p.comsys.h"
+#include "map.h"
+#include "p.mech.update.h"
 
 #define LOS_NB InLineOfSight_NB
 #define MWalkingSpeed(maxspeed) ((float) 2.0 * (maxspeed) / 3.0 + 0.1)

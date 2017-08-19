@@ -435,7 +435,7 @@ void map_savemap(dbref player, void *data, char *buffer)
 	DOCHECK(mech_parseattributes(buffer, args, 1) != 1,
 			"Invalid number of arguments!");
 	if(strlen(args[0]) >= MAP_NAME_SIZE)
-		args[MAP_NAME_SIZE] = 0;
+		args[0][MAP_NAME_SIZE] = 0;
 	notify_printf(player, "Saving %s", args[0]);
 	sprintf(openfile, "%s/", MAP_PATH);
 	strcat(openfile, args[0]);

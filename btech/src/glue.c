@@ -52,6 +52,8 @@
 
 #include "btdb.h"
 
+#include "p.comsys.h"
+
 /* Special object parameters.  */
 SpecialObjectStruct SpecialObjects[] = {
 	{ "MECH", mechcommands, sizeof(MECH), newfreemech,

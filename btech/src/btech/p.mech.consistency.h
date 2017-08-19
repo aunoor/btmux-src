@@ -24,5 +24,6 @@ void mech_weight(dbref player, void *data, char *buffer);
 void vehicle_int_check(MECH * mech, int noisy);
 void mech_int_check(MECH * mech, int noisy);
 int crit_weight(MECH *mech, int t);
+extern int round_to_halfton(int weight);
 
 #endif				/* _P_MECH_CONSISTENCY_H */

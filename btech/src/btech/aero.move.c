@@ -26,6 +26,7 @@
 #include "p.mech.lite.h"
 #include "spath.h"
 #include "p.mine.h"
+#include "glue.h"
 
 struct land_data_type {
 	int type;

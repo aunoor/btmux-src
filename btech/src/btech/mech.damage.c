@@ -29,6 +29,7 @@
 #include "p.mech.utils.h"
 #include "p.mech.pickup.h"
 #include "p.pcombat.h"
+#include "p.mechrep.h"
 
 static char *MyColorStrings[] = {
 	"", "%ch%cg", "%ch%cy", "%cr"
@@ -1026,20 +1027,22 @@ void DestroySection(MECH * wounded, MECH * attacker, int LOS, int hitloc)
 
 	/* If it's a MW or a mech, let's see if there's additional stuff we need to do */
 	if(MechType(wounded) == CLASS_MW || MechType(wounded) == CLASS_MECH) {
-		if(hitloc == LTORSO)
-			DestroySection(wounded, attacker, LOS, LARM);
-		else if(hitloc == RTORSO)
-			DestroySection(wounded, attacker, LOS, RARM);
-		else if(hitloc == CTORSO || hitloc == HEAD) {
-			if(!Destroyed(wounded))
-				if(hitloc == HEAD)
-					if(MechAim(attacker) == HEAD) {
-						DestroyMech(wounded, attacker, 1, KILL_TYPE_HEAD_TARGET);
-					} else {
-						DestroyMech(wounded, attacker, 1, KILL_TYPE_BEHEADED);
-					}
-				else
-					DestroyMech(wounded, attacker, 1, KILL_TYPE_NORMAL);
+		if(hitloc == LTORSO) {
+        DestroySection(wounded, attacker, LOS, LARM);
+    } else if(hitloc == RTORSO) {
+        DestroySection(wounded, attacker, LOS, RARM);
+    } else if(hitloc == CTORSO || hitloc == HEAD) {
+			if (!Destroyed(wounded)) {
+          if (hitloc == HEAD) {
+              if (MechAim(attacker) == HEAD) {
+                  DestroyMech(wounded, attacker, 1, KILL_TYPE_HEAD_TARGET);
+              } else {
+                  DestroyMech(wounded, attacker, 1, KILL_TYPE_BEHEADED);
+              }
+          } else {
+              DestroyMech(wounded, attacker, 1, KILL_TYPE_NORMAL);
+          }
+      }
 			/* If it's the head or a MW's CT, kill the contents if IC */
 			if(hitloc == HEAD || ((MechType(wounded) == CLASS_MW) &&
 								  (hitloc == CTORSO))) {

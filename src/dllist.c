@@ -19,7 +19,7 @@ dllist *dllist_create_list()
         return NULL;
     }
 
-    memset(temp, 0, sizeof(temp));
+    memset(temp, 0, sizeof(*temp));
     temp->head = NULL;
     temp->tail = NULL;
     temp->size = 0;

@@ -36,6 +36,7 @@
 #include "p.mech.enhanced.criticals.h"
 #include "p.mech.ammodump.h"
 #include "mt19937ar.h"
+#include "p.mech.tech.commands.h"
 
 void correct_speed(MECH * mech)
 {

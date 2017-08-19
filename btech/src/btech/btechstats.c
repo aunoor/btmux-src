@@ -1332,7 +1332,7 @@ float getPilotBVMod(MECH * mech, int weapindx)
 	 * (that's <gun skill>+ <pilot skill>+)
 	 */
 
-	int zeroPilotBaseSkills[] =
+	float zeroPilotBaseSkills[] =
 		{ 2.05, 1.85, 1.65, 1.45, 1.25, 1.15, 1.05, .95 };
 
 	int myGSkill = FindPilotGunnery(mech, weapindx);

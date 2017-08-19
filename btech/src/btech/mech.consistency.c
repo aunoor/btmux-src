@@ -12,6 +12,7 @@
 #include "mycool.h"
 #include "p.mech.utils.h"
 #include "mech.partnames.h"
+#include "p.mech.consistency.h"
 #include <math.h>
 
 static char mech_loc_table[][2] = {
@@ -287,7 +288,7 @@ int crit_weight(MECH * mech, int t)
 	}
 }
 
-static int engine_weight(MECH * mech)
+int engine_weight(MECH * mech)
 {
 	int s = MechEngineSize(mech);
 	int i;
@@ -391,21 +392,22 @@ int mech_weight_sub_mech(dbref player, MECH * mech, int interactive)
 			continue;
 		armor += MyGetSectOArmor(mech, i);
 		armor += MyGetSectORArmor(mech, i);
-		PLOC(i)
-			for(j = 0; j < NUM_CRITICALS; j++) {
-				t = GetPartType(mech, i, j);
-				if(interactive >= 0 || !IsAmmo(t)) {
-					// Handle Split Crits
-					if(Special2I(t) == SPLIT_CRIT_RIGHT || Special2I(t) == SPLIT_CRIT_LEFT)	{
-						temp = ReverseSplitCritLoc(mech, i, j);
-						if (temp >= 0) {
-							t = GetPartType(mech, temp, GetPartData(mech, i, j));
-							pile[t] += AmmoMod(mech, temp, GetPartData(mech, i, j));
-						}
-					} else
-						pile[t] += AmmoMod(mech, i, j);
-				}
-			}
+		PLOC(i) {
+        for (j = 0; j < NUM_CRITICALS; j++) {
+            t = GetPartType(mech, i, j);
+            if (interactive >= 0 || !IsAmmo(t)) {
+                // Handle Split Crits
+                if (Special2I(t) == SPLIT_CRIT_RIGHT || Special2I(t) == SPLIT_CRIT_LEFT) {
+                    temp = ReverseSplitCritLoc(mech, i, j);
+                    if (temp >= 0) {
+                        t = GetPartType(mech, temp, GetPartData(mech, i, j));
+                        pile[t] += AmmoMod(mech, temp, GetPartData(mech, i, j));
+                    }
+                } else
+                    pile[t] += AmmoMod(mech, i, j);
+            }
+        }
+    }
 	}
 	shs_size = HS_Size(mech);
 	hs_eff = HS_Efficiency(mech);
@@ -419,17 +421,20 @@ int mech_weight_sub_mech(dbref player, MECH * mech, int interactive)
 			& XXL_TECH ? "Engine (XXL)" : MechSpecials(mech) & CE_TECH ?
 			"Engine (Compact)" : MechSpecials(mech) & LE_TECH ?
 			"Engine (Light)" : "Engine", MechEngineSize(mech));
-	PLOC(CTORSO)
-		ADDENTRY(buf, engine_weight(mech));
-	PLOC(HEAD)
-		if(MechSpecials2(mech) & SMALLCOCKPIT_TECH) {
-			ADDENTRY("Cockpit (Small)", 2 * 1024);
-		} else {
-			ADDENTRY("Cockpit", 3 * 1024);
-		}
-	PLOC(CTORSO)
-		/* Store the base-line gyro weight */
-		gyro_calc = (MechEngineSize(mech) / 100.0);
+	PLOC(CTORSO) {
+      ADDENTRY(buf, engine_weight(mech));
+  }
+	PLOC(HEAD) {
+      if (MechSpecials2(mech) & SMALLCOCKPIT_TECH) {
+          ADDENTRY("Cockpit (Small)", 2 * 1024);
+      } else {
+          ADDENTRY("Cockpit", 3 * 1024);
+      }
+  }
+	PLOC(CTORSO) {
+      /* Store the base-line gyro weight */
+      gyro_calc = (MechEngineSize(mech) / 100.0);
+  }
 
 	/* Figure out what kind of gyro we have and adjust weight accordingly */
 	if(MechSpecials2(mech) & XLGYRO_TECH) {

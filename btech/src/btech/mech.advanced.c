@@ -31,6 +31,7 @@
 #include "p.mech.enhanced.criticals.h"
 #include "p.mech.combat.misc.h"
 #include "mt19937ar.h"
+#include "p.map.conditions.h"
 
 #define SILLY_TOGGLE_MACRO(neededspecial,setstatus,msgon,msgoff,donthave) \
 if (MechSpecials(mech) & (neededspecial)) \

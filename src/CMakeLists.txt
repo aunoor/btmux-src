@@ -8,7 +8,7 @@ file (GLOB NETMUX_SRCS dummy.cc ../misc/myfifo.c ../event/event.c
 	rob.c set.c signal.c speech.c stringutil.c timer.c unparse.c
 	vattr.c walkdb.c wild.c wiz.c version.c )
 
-file (GLOB NETMUX_HDRS ../misc/myfifo.h ../event/event.h
+file (GLOB NETMUX_HDRS ../misc/myfifo.h ../event/p.event.h
         alloc.h ansi.h attrs.h commac.h command.h comsys.h config.h
         cque.h db.h debug.h dlist.h dllist.h externs.h file_c.h flags.h
         functions.h help.h htab.h interface.h macro.h mail.h match.h
@@ -37,6 +37,6 @@ include_directories(${CMAKE_SOURCE_DIR}/event)
 include_directories(${CMAKE_BINARY_DIR})
 
 add_executable(netmux ${NETMUX_SRCS} ${NETMUX_HDRS} ${NETMUX_SRCS_SQL} ${NETMUX_SRCS_LOG})
-target_link_libraries(netmux libbtech ${LIBEVENT_LIB} libbtfi ${LIBBTPR})
+target_link_libraries(netmux libbtech ${LIBEVENT_LIB})
 
 add_executable(mkindx ${MKINDX_SRCS} ${MKINDX_HDRS})

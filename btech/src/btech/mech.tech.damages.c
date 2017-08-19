@@ -25,6 +25,7 @@
 #include "p.mech.tech.commands.h"
 #include "p.mech.status.h"
 #include "p.mech.build.h"
+#include "p.btechstats.h"
 
 /* 0 = type, 1 = loc, 2 = (pos/amnt), 3 = (val) */
 short damage_table[MAX_DAMAGES][3];

@@ -1311,7 +1311,7 @@ void HandleOverheat(MECH * mech)
 			domino_space(mech, 2);
 		} else {
 			MechLOSBroadcast(mech, "stops in mid-motion!");
-			if((fabs(MechSpeed(mech) > MP1)) && !Fallen(mech) &&
+			if((fabs(MechSpeed(mech)) > MP1) && !Fallen(mech) &&
 			   (!MadePilotSkillRoll(mech, 3)))
 				MechFalls(mech, 0, 1);
 		}

@@ -21,7 +21,7 @@ void *mmdb_read(struct mmdb_t *, void *dest, int length);
 void mmdb_write(struct mmdb_t *, void *data, int length);
 
 void mmdb_write_opaque(struct mmdb_t *, void *data, int length);
-void mmdb_read_opaque(struct mmdb_t *, void *dest, int max);
+void *mmdb_read_opaque(struct mmdb_t *, void *dest, int max);
 void mmdb_write_string(struct mmdb_t *, char *data);
 char *mmdb_read_string(struct mmdb_t *);
 

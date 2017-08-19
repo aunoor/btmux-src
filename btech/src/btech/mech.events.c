@@ -168,14 +168,14 @@ void mech_fall_event(MUXEVENT * e)
 	else
 		fallspeed += FALL_ACCEL;
 	MarkForLOSUpdate(mech);
-	if(MechsElevation(mech) > abs(fallspeed)) {
-		MechZ(mech) -= abs(fallspeed);
+	if(MechsElevation(mech) > labs(fallspeed)) {
+		MechZ(mech) -= labs(fallspeed);
 		MechFZ(mech) = MechZ(mech) * ZSCALE;
 		MECHEVENT(mech, EVENT_FALL, mech_fall_event, FALL_TICK, fallspeed);
 		return;
 	}
 	/* Time to hit da ground */
-	fallen_elev = factoral(abs(fallspeed));
+	fallen_elev = factoral(labs(fallspeed));
 	mech_notify(mech, MECHALL, "You hit the ground!");
 	MechLOSBroadcast(mech, "hits the ground!");
 	MechFalls(mech, fallen_elev, 0);

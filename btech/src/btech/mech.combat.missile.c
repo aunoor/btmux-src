@@ -80,8 +80,8 @@ void Missile_Hit(MECH * mech,
 			sprintf(buf, "%s%s", "missile", orig_num_missiles > 1 ? "s" : "");
 		else if(ammoMode & LBX_MODE)
 			sprintf(buf, "%s%s", "pellet", orig_num_missiles > 1 ? "s" : "");
-		else if((fireMode && ULTRA_MODE) || (fireMode && RFAC_MODE) ||
-				(fireMode && RAC_MODES))
+		else if((fireMode & ULTRA_MODE) || (fireMode & RFAC_MODE) ||
+				(fireMode & RAC_MODES))
 			sprintf(buf, "%s%s", "slug", orig_num_missiles > 1 ? "s" : "");
 		else
 			sprintf(buf, "%s", "damage");

@@ -42,5 +42,7 @@ void CheckDamage(MECH * wounded);
 void UpdatePilotSkillRolls(MECH * mech);
 void updateAutoturnTurret(MECH * mech);
 void mech_update(dbref key, void *data);
+int CurrentCountedStaggerDamage(MECH * mech);
+void MarkStaggerDamage(MECH * mech, int staggerLevel);
 
 #endif				/* _P_MECH_UPDATE_H */

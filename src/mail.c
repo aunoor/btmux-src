@@ -1617,7 +1617,8 @@ static int get_folder_number(dbref player, char *name)
 	p = res;
 	while (!isspace(*p))
 		p++;
-	p = '\0';
+	//p = '\0';
+        p = NULL;
 	free_lbuf(atrstr);
 	free_lbuf(str);
 	free_lbuf(pat);

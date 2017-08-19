@@ -28,12 +28,14 @@
 #include "p.crit.h"
 #include "p.mech.combat.h"
 #include "p.mech.damage.h"
+#include "p.mech.status.h"
 #include "p.template.h"
 #include "p.bsuit.h"
 #include "p.mech.los.h"
 #include "p.aero.bomb.h"
 #include "autopilot.h"
 #include "mt19937ar.h"
+
 
 #ifdef BT_ADVANCED_ECON
 #include "p.mech.tech.do.h"

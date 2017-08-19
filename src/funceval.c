@@ -621,7 +621,7 @@ static char *crunch_code(char *code)
 	out = output;
 	in = code;
 	while (*in) {
-		if((*in >= 32) || (*in <= 126)) {
+		if((*in >= 32) && (*in <= 126)) {
 			printf("%c", *in);
 			*out++ = *in;
 		}
@@ -643,7 +643,7 @@ static char *crypt_code(char *code, char *text, int type)
 	if(!text && !*text)
 		return ((char *) "");
 	StringCopy(codebuff, crunch_code(code));
-	if(!code || !*code || !codebuff || !*codebuff)
+	if(!code || !*code || !*codebuff)
 		return (text);
 	StringCopy(textbuff, "");
 

@@ -26,6 +26,7 @@
 #include "p.eject.h"
 #include "p.mech.sensor.h"
 #include "p.crit.h"
+#include "p.mech.ecm.h"
 
 void alter_conditions(MAP * map)
 {
@@ -259,7 +260,7 @@ void DestroyParts(MECH * attacker, MECH * wounded, int hitloc, int breach,
 						}
 
 						if((MechType(wounded) == CLASS_MECH) && 
-								(hitloc == LTORSO || hitloc == RTORSO) && (MechSpecials(wounded) && XL_TECH))
+								(hitloc == LTORSO || hitloc == RTORSO) && (MechSpecials(wounded) & XL_TECH))
 						        DestroyMech(wounded, attacker, 1, 
 										(wounded == attacker) 
 										? KILL_TYPE_SELF_DESTRUCT 

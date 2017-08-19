@@ -220,6 +220,9 @@ extern void destroy_exit(dbref);
 extern void load_restart_db(void);
 extern void dump_database_internal(int);
 
+void dump_restart_db_xdr(void);
+int load_restart_db_xdr();
+
 #define	DOLIST(thing,list) \
 	for ((thing)=(list); \
 	     ((thing)!=NOTHING) && (Next(thing)!=(thing)); \

@@ -19,6 +19,9 @@
 #include "p.mech.consistency.h"
 #include "p.mech.tech.do.h"
 #include "p.bsuit.h"
+#include "p.econ.h"
+#include "p.mech.status.h"
+#include "p.btechstats.h"
 
 #define my_parsepart(loc,part) \
 switch (tech_parsepart(mech, buffer, loc, part,NULL)) \

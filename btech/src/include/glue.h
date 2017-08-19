@@ -950,10 +950,10 @@ CommandsStruct sscommands[] = {
 
 /* Something about [new] Linux gcc is braindead.. I just don't know
    what, but this allows the code to link [bleah] */
-#ifdef memcpy
-#undef memcpy
-#endif
+//#ifdef memcpy
+//#undef memcpy
+//#endif
 
-void send_channel(char *, const char *, ...);
+//void send_channel(char *, const char *, ...);
 
 #endif

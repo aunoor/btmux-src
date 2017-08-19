@@ -207,7 +207,7 @@ void log_error(int key, char *primary, char *secondary, char *format, ...)
 				tm.tm_hour, tm.tm_min, tm.tm_sec);
 	}
 
-	if(secondary && &secondary) {
+	if(secondary && secondary[0]) {
 		fprintf(stderr, "%s%s %3s/%-5s: ", mudstate.buffer,
 				mudconf.mud_name, primary, secondary);
 	} else {

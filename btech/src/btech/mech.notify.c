@@ -643,11 +643,13 @@ static char *ccode(MECH * m, int i, int obs, int team)
 	static char buf[6];
 	int ii;
 
+	buf[0] = 0;
+
 	if(!obs) {
 		if(!t) {
 			strcpy(buf, "");
 			return buf;
-		};
+		}
 		if(t < 9) {
 			sprintf(buf, "%%c%c", radio_colorstr[t - 1]);
 			return buf;
@@ -660,7 +662,7 @@ static char *ccode(MECH * m, int i, int obs, int team)
 			if(team == obs_team_color[ii].team)
 				sprintf(buf, "%s", obs_team_color[ii].ccode);
 		}
-		if(buf == NULL)
+		if(buf[0] == 0)
 			sprintf(buf, "%s", obs_team_color[0].ccode);
 	}
 	return buf;

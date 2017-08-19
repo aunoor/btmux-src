@@ -19,7 +19,8 @@
 
 #include "macros.h"
 #include "mt19937ar.h"
-#include <time.h>
+#include "mech.h"
+
 #include <assert.h>
 
 stat_type rollstat;
@@ -121,7 +122,7 @@ void do_show_stat(dbref player, dbref cause, int key, char *arg1, char *arg2)
  * stuff really fast.  There's really no need to have the compiler inline it to
  * perform further optimization.
  */
-long int
+extern long int
 Number(long int low, long int high)
 {
 	const unsigned long int range = (unsigned long int)(high - low);
