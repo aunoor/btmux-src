@@ -57,5 +57,7 @@ void do_chanobj(dbref player, char *channel, char *object);
 void do_chanstatus(dbref player, dbref cause, int key, char *chan);
 void do_chanlist(dbref player, dbref cause, int key);
 
+extern void do_joinchannel(dbref, struct channel *);
+extern void sort_users(struct channel *);
 
 #endif				/* _P_COMSYS_H */

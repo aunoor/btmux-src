@@ -27,11 +27,9 @@ static void do_show_com(chmsg *);
 static void do_comlast(dbref, struct channel *);
 static void do_comsend(struct channel *, char *);
 static void do_comprintf(struct channel *, char *, ...);
-extern void do_joinchannel(dbref, struct channel *);
 static void do_leavechannel(dbref, struct channel *);
 static void do_comwho(dbref, struct channel *);
 static void do_setnewtitle(dbref, struct channel *, char *);
-extern void sort_users(struct channel *);
 static int do_test_access(dbref, long, struct channel *);
 
 /*

@@ -21,6 +21,7 @@
 #include "comsys.h"
 #include "myfifo.h"
 #include "create.h"
+#include "p.comsys.h"
 
 extern OBJ *db;
 

@@ -67,4 +67,6 @@ void do_undef_macro();
 void do_gex_macro();
 char *do_process_macro();
 
+extern void clear_macro_set(int set);
+
 #endif				/* __MACRO_H */

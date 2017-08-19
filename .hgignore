@@ -1,0 +1,9 @@
+syntax: glob
+*.o
+*.a
+cmake-*
+.idea
+.vscode
+.DS_Store
+nbproject
+

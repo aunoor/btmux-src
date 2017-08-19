@@ -169,7 +169,7 @@ void cf_init(void)
 #endif
 #ifdef HUDINFO_SUPPORT
 	mudconf.hudinfo_show_mapinfo = 0;
-	mudconf.hudinfo_enabled;
+	mudconf.hudinfo_enabled = 1;
 #endif
 	mudconf.registeredonly = 0;
 	mudconf.namechange_days = 60;

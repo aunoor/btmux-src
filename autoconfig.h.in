@@ -1,0 +1,102 @@
+/* config.h.in */
+
+/* BTMux specific options */
+
+/* Should Enhanced Logging be enabled */
+#cmakedefine ARBITRARY_LOGFILES @ARBITRARY_LOGFILES@
+
+/* Should the advanced econ system be enabled */
+#cmakedefine BT_ADVANCED_ECON @BT_ADVANCED_ECON@
+
+/* Should complex repairs be enabled */
+#cmakedefine BT_COMPLEXREPAIRS @BT_COMPLEXREPAIRS@
+
+/* Should the freetechtime code be enabled */
+#cmakedefine BT_FREETECHTIME @BT_FREETECHTIME@
+
+/* Should the HUDINFO code be enabled */
+#cmakedefine HUDINFO_SUPPORT @HUDINFO_SUPPORT@
+
+/* Should SQL Support be enabled */
+#cmakedefine SQL_SUPPORT @SQL_SUPPORT@
+
+/* Should we rename the 'help' command to 'muxhelp' */
+#cmakedefine MOVE_HELP @MOVE_HELP@
+
+/* Use TinyMUX 1.x BTPR layer */
+#cmakedefine BTPR_MUX1 @BTPR_MUX1@
+
+/* Use TinyMUX 2.x BTPR layer */
+#cmakedefine BTPR_MUX2
+
+/* Use PennMUSH BTPR layer */
+#cmakedefine BTPR_PENN
+
+/* Should the advanced econ system be enabled */
+#cmakedefine BT_ADVANCED_ECON @BT_ADVANCED_ECON@
+
+/* Should the cargo commands be enabled */
+#cmakedefine BT_CARGO_COMMANDS @BT_CARGO_COMMANDS@
+
+/* Should MW3-like stats and skills be enabled */
+#cmakedefine BT_EXILE_MW3STATS @BT_EXILE_MW3STATS@
+
+/* Should enhanced movment modes be enabled */
+#cmakedefine BT_MOVEMENT_MODES @BT_MOVEMENT_MODES@
+
+/* Should heat-scaled infrared be enabled */
+#cmakedefine BT_SCALED_INFRARED @BT_SCALED_INFRARED@
+
+/* Should mech overspeeding be enabled */
+#cmakedefine WEIGHT_OVERSPEEDING @WEIGHT_OVERSPEEDING@
+
+/* Version number of package */
+#cmakedefine VERSION "@VERSION@"
+
+/* Package string */
+#cmakedefine PACKAGE_STRING "@PACKAGE_STRING@"
+
+/* Code support options */
+
+/* Define to 1 if you have the `getdtablesize' function. */
+#cmakedefine HAVE_GETDTABLESIZE @HAVE_GETDTABLESIZE@
+
+/* Define to 1 if you have the `getrusage' function. */
+#cmakedefine HAVE_GETRUSAGE @HAVE_GETRUSAGE@
+
+/* Define to 1 if you have the `posix_memalign' function. */
+#cmakedefine HAVE_POSIX_MEMALIGN @HAVE_POSIX_MEMALIGN@
+
+/* Define to 1 if you have the `srandom' function. */
+#cmakedefine HAVE_SRANDOM @HAVE_SRANDOM@
+
+/* Define to 1 if you have the `strlcat' function. */
+#cmakedefine HAVE_STRLCAT @HAVE_STRLCAT@
+
+/* Define to 1 if you have the `strlcpy' function. */
+#cmakedefine HAVE_STRLCPY @HAVE_STRLCPY@
+
+/* Define to 1 if you have the `strndup' function. */
+#cmakedefine HAVE_STRNDUP @HAVE_STRNDUP@
+
+/* Define to 1 if you have the `strnlen' function. */
+#cmakedefine HAVE_STRNLEN @HAVE_STRNLEN@
+
+/* Define to 1 if `si_fd' is member of `siginfo_t'. */
+#cmakedefine HAVE_SIGINFO_T_SI_FD @HAVE_SIGINFO_T_SI_FD@
+
+/* Define to 1 if you have the <sys/select.h> header file. */
+#cmakedefine HAVE_SYS_SELECT_H @HAVE_SYS_SELECT_H@
+
+/* Define to 1 if you have the ANSI C header files. */
+#cmakedefine STDC_HEADERS @STDC_HEADERS@
+
+
+/* Define to `int' if <sys/types.h> does not define. */
+#cmakedefine pid_t @pid_t@
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#cmakedefine size_t @size_t@
+
+/* Define as `fork' if `vfork' does not work. */
+#undef vfork
