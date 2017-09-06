@@ -12,7 +12,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules")
 #include(FindZLIB)
 #include(FindIconv)
 include(FindPythonLibs)
-include(FindPythonInterp)
+#include(FindPythonInterp)
 include(GenConfigH)
 
 #check libraries

@@ -69,6 +69,9 @@ char *mux_version = PACKAGE_STRING " " VERSION
 #ifdef ARBITRARY_LOGFILES
     "+ALG"
 #endif
+#ifdef USE_PYTHON
+		"+PY"
+#endif
 #ifdef DEBUG
     " DEBUG git hash " SVN_REVISION
 #else

@@ -560,8 +560,7 @@ CMDENT command_table[] = {
 	{(char *) "@program", NULL, CA_PUBLIC, 0, CS_TWO_ARG | CS_INTERP,
 	 do_prog},
 #ifdef USE_PYTHON
-	{(char *) "@python", NULL, CA_WIZARD, 0, CS_INTERP | CS_ONE_ARG,
-	 do_python},
+	{(char *) "@python", NULL, CA_WIZARD, 0, CS_INTERP | CS_ONE_ARG, do_python},
 #endif
 	{(char *) "@ps", ps_sw, 0, 0, CS_ONE_ARG | CS_INTERP, do_ps},
 	{(char *) "@quota", quota_sw, 0, 0, CS_TWO_ARG | CS_INTERP, do_quota},
