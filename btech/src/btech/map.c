@@ -548,8 +548,6 @@ void map_clearmechs(dbref player, void *data, char *buffer)
 		ShutDownMap(player, map->mynum);
 }
 
-extern void update_LOSinfo(dbref, MAP *);
-
 void map_update(dbref obj, void *data)
 {
 	MAP *map = ((MAP *) data);

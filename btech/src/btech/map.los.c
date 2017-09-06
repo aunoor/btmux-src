@@ -14,12 +14,10 @@
 #include "mech.sensor.h"
 #include "map.los.h"
 #include "p.mech.utils.h"
+#include "p.mech.lostracer.h"
 
 #define INDEX2X(i)		((i%(losmap.xsize))+(losmap.startx))
 #define INDEX2Y(i)		((i/(losmap.xsize))+(losmap.starty))
-
-extern int TraceLOS(MAP * map, int ax, int ay, int bx, int by,
-					lostrace_info ** result);
 
 static hexlosmap_info losmap;
 

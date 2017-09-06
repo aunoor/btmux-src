@@ -23,6 +23,7 @@
 #include "p.mech.sensor.h"
 #include "p.mech.los.h"
 #include "p.mech.utils.h"
+#include "p.mech.lostracer.h"
 
 /* 'nice' sensor stuff's in the mech.sensor.c ; nasty brute code
    lies here */
@@ -51,8 +52,8 @@ float ActualElevation(MAP * map, int x, int y, MECH * mech)
 	return (float) MechZ(mech) + 0.5;
 }
 
-extern int TraceLOS(MAP * map, int ax, int ay, int bx, int by,
-					lostrace_info ** result);
+//extern int TraceLOS(MAP * map, int ax, int ay, int bx, int by,
+//					lostrace_info ** result);
 
 /* from/mech: mech _mech_ seeing _target_ on map _map_, _ff_
    is the previous flag (or seeing _x_,_y_ if _target_ is NULL),

@@ -12,6 +12,8 @@
 #ifndef _P_MECH_LOSTRACER_H
 #define _P_MECH_LOSTRACER_H
 
-int *TraceLOS(MAP * map, int ax, int ay, int bx, int by, int *result);
+#include "mech.h"
+
+int TraceLOS(MAP * map, int ax, int ay, int bx, int by, lostrace_info ** result);
 
 #endif				/* _P_MECH_LOSTRACER_H */

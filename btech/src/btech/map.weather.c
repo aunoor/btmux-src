@@ -7,7 +7,7 @@
  *  Copyright (c) 2002 Cord Awtry
  *       All rights reserved
  */
-
+#if 0
 #include "mech.h"
 #include "p.mech.utils.h"
 #include "p.mech.ice.h"
@@ -283,3 +283,4 @@ void growSnow(MAP * map, int lowDepth, int highDepth)
 	}
 
 }
+#endif

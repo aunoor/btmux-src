@@ -6,7 +6,9 @@
 #include "copyright.h"
 #include "autoconf.h"
 
-#define _GNU_SOURCE
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE 1
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
