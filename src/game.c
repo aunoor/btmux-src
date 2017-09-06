@@ -37,6 +37,8 @@
 #include <sys/ucontext.h>
 #endif
 
+#include "mx_python.h"
+
 #define NSUBEXP 10
 
 extern void init_attrtab(void);

@@ -16,6 +16,7 @@
 #include "command.h"
 #include "attrs.h"
 #include "powers.h"
+#include "mx_python.h"
 
 extern void pool_reset(void);
 extern void do_second(void);

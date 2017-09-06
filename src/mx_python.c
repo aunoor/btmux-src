@@ -10,8 +10,9 @@
 #include "config.h"
 #include "db.h"
 #include "externs.h"
+#include "interface.h"
+
 #include "mudconf.h"
-#include "config.h"
 
 #ifdef USE_PYTHON
 #include "Python.h"
@@ -34,7 +35,7 @@ static PyObject *maindict = NULL;
 */
 static int MUXPy_State = 0;
 
-extern void raw_notify_raw(dbref, char *, char *);
+//extern void raw_notify_raw(dbref, char *, char *);
 static void init_muxmodule(void);
 
 void MUXPy_ReportError(dbref who, int clearerr)
@@ -384,7 +385,7 @@ void fun_pythoncall(char *buff, char **bufc,
 staticforward PyTypeObject PyFakeStdout_Type;
 typedef struct {
 	PyObject_HEAD;
-	dbref dbref;
+	dbref sdbref;
 } fakestdout;
 
 static PyObject *fakestdout_write(fakestdout * self, PyObject * args)
@@ -393,7 +394,7 @@ static PyObject *fakestdout_write(fakestdout * self, PyObject * args)
 
 	if(!PyArg_ParseTuple(args, "s:write", &str))
 		return NULL;
-	raw_notify_raw(self->dbref, str, NULL);
+	raw_notify_raw(self->sdbref, str, NULL);
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -404,7 +405,7 @@ static PyObject *MakeFakeStdout(dbref dbref)
 
 	if(mo == NULL)
 		return NULL;
-	mo->dbref = dbref;
+	mo->sdbref = dbref;
 	return (PyObject *) mo;
 }
 
@@ -444,7 +445,7 @@ staticforward PyTypeObject PyMUXObject_Type;
 
 typedef struct {
 	PyObject_HEAD;
-	dbref dbref;
+	dbref sdbref;
 } MUXObject;
 
 static PyObject *MUXObject_New(dbref dbref)
@@ -454,7 +455,7 @@ static PyObject *MUXObject_New(dbref dbref)
 	mo = PyObject_NEW(MUXObject, &PyMUXObject_Type);
 	if(mo == NULL)
 		return NULL;
-	mo->dbref = dbref;
+	mo->sdbref = dbref;
 	return (PyObject *) mo;
 }
 
@@ -475,7 +476,7 @@ static PyObject *MUXObject_keys(MUXObject * self, PyObject * args)
 	p = PyList_New(0);
 	PyList_Append(p, PyString_FromString("Dbref"));
 	PyList_Append(p, PyString_FromString("Location"));
-	for(ca = atr_head(self->dbref, &as); ca; ca = atr_next(&as)) {
+	for(ca = atr_head(self->sdbref, &as); ca; ca = atr_next(&as)) {
 		attr = atr_num(ca);
 		PyList_Append(p, PyString_FromString(attr->name));
 	}
@@ -493,21 +494,22 @@ static PyObject *MUXObject_GetAttr(MUXObject * self, char *name)
 	int len;
 	ATTR *a;
 	char *buf;
-	int ao, af;					/* Attribute owner, attribute flags */
+	dbref ao; //Attribute owner
+	long af;  //Attribute flags
 	PyObject *p;
 	PyObject *v = NULL;
 
 	if(strcasecmp(name, "location") == 0)
-		return PyInt_FromLong(Location(self->dbref));
+		return PyInt_FromLong(Location(self->sdbref));
 
 	if(strcasecmp(name, "dbref") == 0)
-		return PyInt_FromLong(self->dbref);
+		return PyInt_FromLong(self->sdbref);
 
 	if(!(a = atr_str(name)))
 		return Py_FindMethod(MUXObject_methods, (PyObject *) self, name);
 
 	buf = alloc_lbuf("python_getattr");	/* XXX: Overflow check */
-	atr_get_str(buf, self->dbref, a->number, &ao, &af);
+	atr_get_str(buf, self->sdbref, a->number, &ao, &af);
 	p = PyString_FromString(buf);
 	free_lbuf(buf);
 	return p;
@@ -522,7 +524,7 @@ static int MUXObject_SetAttr(MUXObject * self, char *name, PyObject * v)
 	if(v == NULL) {
 		/* delAttr */
 		if(atr) {
-			atr_clr(self->dbref, atr->number);
+			atr_clr(self->sdbref, atr->number);
 			return 0;
 		}
 		PyErr_SetString(PyExc_AttributeError, "Nonexistent attribute");
@@ -534,7 +536,7 @@ static int MUXObject_SetAttr(MUXObject * self, char *name, PyObject * v)
 		return -1;
 	}
 	attnum = atr ? atr->number : mkattr(name);
-	atr_add_raw(self->dbref, attnum, PyString_AsString(v));
+	atr_add_raw(self->sdbref, attnum, PyString_AsString(v));
 	return 0;
 }
 
@@ -543,7 +545,7 @@ static PyObject *muxc_getobject(PyObject * self, PyObject * args)
 {
 	dbref dbref;
 
-	if(!PyArg_ParseTuple(args, "i:getobject", &dbref))
+	if(!PyArg_ParseTuple(args, "l:getobject", &dbref))
 		return NULL;
 	return MUXObject_New(dbref);
 }
@@ -554,8 +556,8 @@ static PyObject *mux_eval(dbref dbref, char *str)
 	char *endMarker = buf;
 	PyObject *rv;
 
-	exec(buf, &endMarker, 0, dbref, cause,
-		 EV_FCHECK | EV_STRIP | EV_EVAL, &str, NULL, 0);
+	exec(buf, &endMarker, 0, dbref, cause, EV_FCHECK | EV_STRIP | EV_EVAL, &str, NULL, 0);
+
 	*endMarker = 0;
 	if(*buf)
 		rv = PyString_FromString(buf);
@@ -569,20 +571,34 @@ static PyObject *mux_eval(dbref dbref, char *str)
 
 static PyObject *muxc_muxeval(PyObject * self, PyObject * args)
 {
-	dbref dbref;
-	char *str;
+	dbref dbref = -1;
+	const char *arg_str;
+  char *str = NULL;
+  size_t str_len;
+  PyObject *ret;
 
-	if(!PyArg_ParseTuple(args, "is:muxeval", &dbref, &str))
-		return NULL;
-	return mux_eval(dbref, str);
+	if(!PyArg_ParseTuple(args, "ls:muxeval", &dbref, &arg_str))
+    return NULL;
+
+  str_len = strlen(arg_str);
+  if (str_len) {
+      str = calloc(str_len+1, 1);
+      strncpy(str, arg_str, str_len);
+  }
+
+  ret = mux_eval(dbref, str);
+
+  if (str) free(str);
+
+	return ret;
 }
 
 static PyObject *muxc_notify(PyObject * self, PyObject * args)
 {
 	dbref dbref;
-	char *str;
+	const char *str;
 
-	if(!PyArg_ParseTuple(args, "is:notify", &dbref, &str))
+	if(!PyArg_ParseTuple(args, "ls:notify", &dbref, &str))
 		return NULL;
 	notify(dbref, str);
 	Py_INCREF(Py_None);
@@ -605,15 +621,30 @@ static PyObject *muxc_notify(PyObject * self, PyObject * args)
 };
 
 static PyMethodDef MUXMethods[] = {
-	{"getobject", muxc_getobject, METH_VARARGS},
-	{"muxeval", muxc_muxeval, METH_VARARGS},
-	{"notify", muxc_notify, METH_VARARGS},
-	{NULL, NULL}				/* Sentinel */
+	{"getobject", muxc_getobject, METH_VARARGS, "Not documented"},
+	{"muxeval", muxc_muxeval, METH_VARARGS, "Not documented"},
+	{"notify", muxc_notify, METH_VARARGS, "Not documented"},
+	{NULL, NULL, 0, NULL}				/* Sentinel */
 };
 
 static void init_muxmodule()
 {
-	PyImport_AddModule("muxc");
-	Py_InitModule("muxc", MUXMethods);
+    PyObject * muxc;
+    muxc = Py_InitModule("muxc", MUXMethods);
+    if (!muxc) {
+        STARTLOG(LOG_PROBLEMS, "PYTHON", NULL) {
+            log_text("Can't load muxc module ");
+            ENDLOG;
+        }
+        return;
+    }
+	  muxc = PyImport_AddModule("muxc");
+    if (!muxc) {
+        STARTLOG(LOG_PROBLEMS, "PYTHON", NULL) {
+            log_text("Can't add muxc module ");
+            ENDLOG;
+        }
+        return;
+    }
 }
 #endif /* USE_PYTHON */

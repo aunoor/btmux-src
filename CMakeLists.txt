@@ -11,6 +11,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules")
 #include(FindGeoIP)
 #include(FindZLIB)
 #include(FindIconv)
+include(FindPythonLibs)
+include(FindPythonInterp)
 include(GenConfigH)
 
 #check libraries
@@ -36,6 +38,7 @@ set(BT_EXILE_MW3STATS ON CACHE BOOL "Should MW3-like stats and skills be enabled
 set(BT_MOVEMENT_MODES ON CACHE BOOL "Should enhanced movment modes be enabled")
 set(BT_SCALED_INFRARED ON CACHE BOOL "Should heat-scaled infrared be enabled")
 set(WEIGHT_OVERSPEEDING OFF CACHE BOOL "Should mech overspeeding be enabled")
+set(USE_PYTHON ON CACHE BOOL "Use Python bindings")
 set(BTPR_MUX1 ON)
 set(PACKAGE_STRING "BattleTech MUX")
 
