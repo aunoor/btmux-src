@@ -5771,7 +5771,7 @@ FUN flist[] = {
 	{"BTLAG", fun_btlag, 0, 0, CA_WIZARD},
 	{"BTLISTBLZ", fun_btlistblz, 1, 0, CA_WIZARD},
 	{"BTLOADMAP", fun_btloadmap, 2, FN_VARARGS, CA_WIZARD},
-    {"BTSETMAPHEX", fun_btsetmaphex, 4, FN_VARARGS, CA_WIZARD},
+  {"BTSETMAPHEX", fun_btsetmaphex, 4, FN_VARARGS, CA_WIZARD},
 	{"BTLOADMECH", fun_btloadmech, 2, 0, CA_WIZARD},
 	{"BTLOSM2M", fun_btlosm2m, 2, 0, CA_WIZARD},
 	{"BTMAKEPILOTROLL", fun_btmakepilotroll, 3, 0, CA_WIZARD},
