@@ -146,6 +146,7 @@ NAMETAB dump_sw[] = {
 	{(char *) "structure", 1, CA_WIZARD, DUMP_STRUCT | SW_MULTIPLE},
 	{(char *) "text", 1, CA_WIZARD, DUMP_TEXT | SW_MULTIPLE},
 	{(char *) "optimize", 1, CA_WIZARD, DUMP_OPTIMIZE | SW_MULTIPLE},
+  {(char *) "xml", 1, CA_WIZARD, DUMP_XML | SW_MULTIPLE},
 	{NULL, 0, 0, 0}
 };
 

@@ -66,12 +66,13 @@ void logcache_destruct();
 extern void init_hudinfo(void);
 #endif
 
-void fork_and_dump(int);
+void fork_and_dump(int key);
 void dump_database(void);
 void do_dump_optimize(dbref, dbref, int);
 void pcache_sync(void);
 void dump_database_internal(int);
 static void init_rlimit(void);
+void do_dump_xml(int key);
 
 int reserved;
 
@@ -94,6 +95,8 @@ void do_dump(dbref player, dbref cause, int key)
 
 	if(key & DUMP_OPTIMIZE)
 		do_dump_optimize(player, cause, key);
+	else if (key & DUMP_XML)
+		do_dump_xml(key);
 	else
 		fork_and_dump(key);
 }
@@ -1052,6 +1055,26 @@ void fork_and_dump(int key)
 
 	if(*mudconf.postdump_msg)
 		raw_broadcast(0, "%s", mudconf.postdump_msg);
+}
+
+void do_dump_xml(int key)
+{
+	char tmpfile[256];
+	FILE *f;
+
+	mudstate.dumping = 1;
+
+	sprintf(tmpfile, "%s.xml", mudconf.outdb);
+
+  f = fopen(tmpfile, "w");
+		if(f) {
+			xml_db_write(f, F_MUX, OUTPUT_VERSION | OUTPUT_FLAGS);
+			fclose(f);
+		} else {
+			log_perror("SAV", "FAIL", "Opening", tmpfile);
+		}
+
+	mudstate.dumping = 0;
 }
 
 static int load_game(void)

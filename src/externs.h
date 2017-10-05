@@ -397,6 +397,7 @@ void list_chashstats(dbref);
 #define	DUMP_STRUCT	1	/* Dump flat structure file */
 #define	DUMP_TEXT	2	/* Dump text (gdbm) file */
 #define DUMP_OPTIMIZE	3	/* Reorganize the gdbm file */
+#define	DUMP_XML	4	/* Dump base as xml file */
 #define	EXAM_DEFAULT	0	/* Default */
 #define	EXAM_BRIEF	1	/* Nonowner sees just owner */
 #define	EXAM_LONG	2	/* Nonowner sees public attrs too */
