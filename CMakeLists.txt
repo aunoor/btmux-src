@@ -17,6 +17,7 @@ include(GenConfigH)
 
 #check libraries
 find_package(LibEvent REQUIRED)
+find_package(LibCrypt REQUIRED)
 
 
 #define current version

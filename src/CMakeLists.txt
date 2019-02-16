@@ -41,7 +41,7 @@ if (USE_PYTHON AND PYTHONLIBS_FOUND)
 endif(USE_PYTHON AND PYTHONLIBS_FOUND)
 
 add_executable(netmux ${NETMUX_SRCS} ${NETMUX_HDRS} ${NETMUX_SRCS_SQL} ${NETMUX_SRCS_LOG})
-target_link_libraries(netmux libbtech ${LIBEVENT_LIB})
+target_link_libraries(netmux libbtech ${LIBEVENT_LIB} ${LIBCRYPT_LIB})
 
 if (USE_PYTHON)
     if (APPLE)
